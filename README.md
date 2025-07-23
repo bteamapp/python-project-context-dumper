@@ -21,3 +21,15 @@ Perfect for passing full project context into an AI (LLM) for summarization, age
 
 ```bash
 wget https://raw.githubusercontent.com/yourname/project-context-dumper/main/context_dumper.py
+```
+Run the script using Python 3:
+
+```bash
+python context_dumper.py
+```
+You'll get a file called:
+
+```bash
+project_context.md
+```
+This file contains a full dump of your project’s readable files for easy context loading into LLMs.

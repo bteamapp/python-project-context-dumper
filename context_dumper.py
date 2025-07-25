@@ -68,13 +68,19 @@ def collect_text_files(base_dir: Path):
     collected = []
 
     for path in base_dir.rglob('*'):
-        if path.is_file() and not should_skip(path):
-            content = read_text_file(path)
-            if content:
-                relative_path = path.relative_to(base_dir)
-                collected.append((relative_path, content))
-    
+        try:
+            if path.is_file() and not should_skip(path):
+                content = read_text_file(path)
+                if content:
+                    relative_path = path.relative_to(base_dir)
+                    collected.append((relative_path, content))
+        except OSError as e:
+            print(f"⚠️ Bỏ qua: {path} (lỗi hệ thống: {e})")
+        except Exception as e:
+            print(f"⚠️ Bỏ qua: {path} (lỗi không xác định: {e})")
+
     return collected
+
 
 
 def write_to_markdown(collected_files: list[tuple[Path, str]], output_path: Path):
